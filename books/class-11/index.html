@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b16">
+<title>Class 11 Books | BOARDXBREAKER</title>
+<style>
+:root{color-scheme:dark;--bg:#080b16;--line:rgba(160,178,255,.16);--muted:#9ba6c5;--text:#f4f6ff;--cyan:#63e4ef}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--text);font-family:Inter,system-ui,sans-serif;background:radial-gradient(ellipse at 15% 5%,rgba(63,91,210,.22),transparent 34rem),radial-gradient(ellipse at 88% 22%,rgba(31,191,204,.12),transparent 30rem),var(--bg)}
+.shell{width:min(1120px,calc(100% - 40px));margin:auto}
+header{display:flex;align-items:center;justify-content:space-between;padding:28px 0}
+.brand{display:flex;align-items:center;gap:12px;font-weight:850;letter-spacing:.11em;font-size:15px}
+.mark{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(135deg,#7192ff,#4bd5e3);color:#07101d;font-weight:950}
+a{color:inherit;text-decoration:none}
+.back{color:#cbd5f5;font-size:13px;border:1px solid var(--line);background:rgba(110,143,255,.12);padding:10px 14px;border-radius:11px}
+main{padding:65px 0 100px}
+.eyebrow{color:var(--cyan);text-transform:uppercase;letter-spacing:.22em;font-size:11px;font-weight:800}
+h1{margin:17px 0 14px;font-size:clamp(42px,7vw,70px);line-height:1;letter-spacing:-.06em}
+h1 span{background:linear-gradient(100deg,#fff 10%,#9bb4ff 56%,#69e4e8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.intro{max-width:560px;color:var(--muted);font-size:15px;line-height:1.75}
+.empty{margin-top:36px;padding:28px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,rgba(24,33,59,.88),rgba(13,18,34,.86));color:var(--muted);line-height:1.7}
+.empty strong{display:block;color:var(--text);font-size:18px;margin-bottom:7px}
+footer{border-top:1px solid rgba(160,178,255,.1);padding:22px 0 30px;color:#73809f;font-size:11px;display:flex;justify-content:space-between;gap:12px}
+@media(max-width:680px){.shell{width:min(100% - 28px,560px)}header{padding:20px 0}.brand{font-size:12px}.back{font-size:11px;padding:9px 11px}main{padding:52px 0 70px}footer{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header>
+<a class="brand" href="/"><span class="mark">B</span><span>BOARDXBREAKER</span></a>
+<a class="back" href="/books/">← BACK TO BOOKS</a>
+</header>
+<main>
+<div class="eyebrow">Your study library · Class 11</div>
+<h1>Class 11 <span>Books.</span></h1>
+<p class="intro">Explore books and study material for Class 11, all in one place.</p>
+<section class="empty">
+<strong>Class 11 library is ready.</strong>
+Books and study resources will be added here.
+</section>
+</main>
+<footer>
+<span>© <span id="year"></span> BOARDXBREAKER</span>
+<span>Learn with focus. Move beyond limits.</span>
+</footer>
+</div>
+<script>document.getElementById("year").textContent=new Date().getFullYear();</script>
+</body>
+</html>
