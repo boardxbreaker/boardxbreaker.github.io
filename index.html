@@ -3,189 +3,992 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080b16">
-  <meta name="description" content="BOARDXBREAKER — your study hub.">
+  <meta name="theme-color" content="#0d0812">
+  <meta name="description" content="BOARDXBREAKER — your premium study hub.">
   <title>BOARDXBREAKER | Study Hub</title>
   <style>
     :root {
       color-scheme: dark;
-      --bg: #080b16;
-      --panel: rgba(17, 23, 42, .78);
-      --line: rgba(160, 178, 255, .15);
-      --muted: #9ba6c5;
-      --text: #f4f6ff;
-      --blue: #6b8cff;
-      --cyan: #63e4ef;
+      --bg-base: #0d0812;
+      --glass-bg: rgba(255, 240, 245, 0.045);
+      --glass-bg-strong: rgba(26, 15, 34, 0.64);
+      --glass-border: rgba(255, 215, 230, 0.14);
+      --glass-border-hover: rgba(251, 146, 178, 0.48);
+      --glass-highlight: rgba(255, 230, 240, 0.24);
+      --text-primary: #fff8fa;
+      --text-muted: #cbb4c2;
+      --accent-rose: #fb7185;
+      --accent-amber: #fbbf24;
+      --accent-coral: #f97316;
+      --accent-plum: #c084fc;
     }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0; min-height: 100vh; color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(ellipse at 15% 5%, rgba(63, 91, 210, .22), transparent 34rem),
-        radial-gradient(ellipse at 88% 22%, rgba(31, 191, 204, .12), transparent 30rem),
-        var(--bg);
-    }
-    body::before {
-      content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .16;
-      background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-      background-size: 42px 42px;
-      mask-image: linear-gradient(to bottom, black, transparent 85%);
-    }
-    .shell { width: min(1120px, calc(100% - 40px)); margin: auto; position: relative; }
-    header { display:flex; align-items:center; justify-content:space-between; padding:28px 0; }
-    .brand { display:flex; align-items:center; gap:12px; font-weight:850; letter-spacing:.11em; font-size:15px; }
-    .brand-mark {
-      width:38px; height:38px; display:grid; place-items:center; border-radius:12px;
-      background:linear-gradient(135deg,#7192ff,#4bd5e3); color:#07101d; font-weight:950;
-      box-shadow:0 8px 28px rgba(91,135,255,.25);
-    }
-    .status { color:#aeb9d7; font-size:12px; letter-spacing:.08em; text-transform:uppercase; }
-    .status::before { content:""; display:inline-block; width:7px; height:7px; border-radius:50%; background:#63e4a7; margin:0 8px 1px 0; box-shadow:0 0 12px #63e4a7; }
-    .hero { padding:78px 0 56px; max-width:760px; }
-    .eyebrow { color:var(--cyan); text-transform:uppercase; letter-spacing:.22em; font-size:11px; font-weight:800; }
-    h1 { margin:17px 0 15px; font-size:clamp(42px, 7vw, 76px); line-height:.99; letter-spacing:-.065em; }
-    h1 span { background:linear-gradient(100deg,#fff 10%,#9bb4ff 56%,#69e4e8); -webkit-background-clip:text; background-clip:text; color:transparent; }
-    .intro { margin:0; max-width:550px; color:var(--muted); font-size:16px; line-height:1.75; }
-    .section-head { display:flex; justify-content:space-between; align-items:end; gap:16px; margin:22px 0 20px; }
-    .section-head h2 { margin:0; font-size:19px; letter-spacing:-.02em; }
-    .section-head p { margin:0; color:#7f8baa; font-size:12px; }
-    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; padding-bottom:80px; }
-    .card {
-      position:relative; overflow:hidden; min-height:245px; padding:25px; border:1px solid var(--line);
-      border-radius:24px; background:linear-gradient(145deg,rgba(24,33,59,.88),rgba(13,18,34,.86));
-      box-shadow:0 18px 55px rgba(0,0,0,.18); transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
-    }
-    .card::after { content:""; position:absolute; width:190px; height:190px; right:-65px; top:-85px; border-radius:50%; background:var(--glow); filter:blur(2px); opacity:.15; pointer-events:none; }
-    .card:hover { transform:translateY(-6px); border-color:rgba(126,160,255,.42); box-shadow:0 24px 65px rgba(0,0,0,.32),0 0 35px rgba(90,125,255,.08); }
-    .card-top { display:flex; align-items:center; justify-content:space-between; position:relative; z-index:1; }
-    .symbol { width:52px; height:52px; display:grid; place-items:center; border-radius:16px; font-size:16px; font-weight:900; color:#08111d; background:linear-gradient(135deg,var(--accent),var(--accent2)); box-shadow:0 10px 25px color-mix(in srgb,var(--accent) 20%,transparent); }
-    .number { color:#7582a3; font-size:11px; letter-spacing:.14em; }
-    .card h3 { margin:27px 0 8px; font-size:23px; letter-spacing:-.035em; position:relative; z-index:1; }
-    .card p { margin:0; color:var(--muted); font-size:13px; line-height:1.6; position:relative; z-index:1; }
-    .launch {
-      margin-top:23px; display:inline-flex; align-items:center; gap:12px; padding:12px 16px; border:1px solid rgba(155,179,255,.24);
-      border-radius:12px; color:#f4f7ff; text-decoration:none; font-size:12px; font-weight:800; letter-spacing:.06em;
-      background:rgba(110,143,255,.12); transition:background .2s ease,transform .2s ease; position:relative; z-index:1;
-    }
-    .launch:hover { background:rgba(110,143,255,.24); transform:translateY(-2px); }
-    .launch span { color:var(--cyan); font-size:16px; }
-    footer { border-top:1px solid rgba(160,178,255,.1); padding:22px 0 30px; color:#73809f; font-size:11px; display:flex; justify-content:space-between; gap:12px; }
-    .modal { display:none; position:fixed; inset:0; z-index:10; background:rgba(3,5,12,.82); backdrop-filter:blur(14px); padding:18px; }
-    .modal.open { display:flex; align-items:center; justify-content:center; }
-    .modal-box { width:min(1200px,100%); height:min(88vh,850px); display:flex; flex-direction:column; overflow:hidden; border:1px solid rgba(150,174,255,.25); border-radius:18px; background:#0c1120; box-shadow:0 30px 100px #0009; }
-    .modal-bar { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; color:#cbd5f5; font-size:12px; }
-    .modal-actions { display:flex; align-items:center; gap:9px; }
-    .refresh, .close { border:1px solid var(--line); background:#18213a; color:white; height:34px; border-radius:10px; cursor:pointer; }
-    .refresh { padding:0 12px; font-size:12px; font-weight:750; letter-spacing:.03em; }
-    .refresh:hover, .close:hover { background:#263454; border-color:rgba(150,174,255,.38); }
-    .close { width:34px; font-size:19px; }
-    iframe { width:100%; flex:1; border:0; background:white; }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--text-primary);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-base);
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    /* Ambient Mesh Orbs — Obsidian Rose & Sunset Amber Palette */
+    .ambient-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      overflow: hidden;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 14% 12%, rgba(244, 63, 94, 0.24), transparent 44%),
+        radial-gradient(circle at 86% 18%, rgba(251, 191, 36, 0.16), transparent 42%),
+        radial-gradient(circle at 52% 88%, rgba(192, 132, 252, 0.2), transparent 50%),
+        #0d0812;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(78px);
+      opacity: 0.46;
+      will-change: transform;
+      animation: floatOrb 18s ease-in-out infinite alternate;
+    }
+
+    .orb-1 {
+      width: 390px;
+      height: 390px;
+      top: -95px;
+      left: -65px;
+      background: linear-gradient(135deg, #f43f5e, #fb923c);
+    }
+
+    .orb-2 {
+      width: 350px;
+      height: 350px;
+      top: 26%;
+      right: -85px;
+      background: linear-gradient(135deg, #c084fc, #fb7185);
+      animation-delay: -6s;
+    }
+
+    .orb-3 {
+      width: 430px;
+      height: 430px;
+      bottom: -145px;
+      left: 24%;
+      background: linear-gradient(135deg, #f59e0b, #e11d48);
+      animation-delay: -12s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      100% { transform: translate3d(28px, -24px, 0) scale(1.07); }
+    }
+
+    /* Subtle Glass Grid Overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.2;
+      background-image:
+        linear-gradient(rgba(255, 225, 235, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 225, 235, 0.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(ellipse at center, black 35%, transparent 85%);
+    }
+
+    .shell {
+      width: min(1140px, calc(100% - 36px));
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* Glass Header */
+    header {
+      position: sticky;
+      top: 16px;
+      z-index: 20;
+      margin-top: 16px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      border-radius: 20px;
+      background: rgba(24, 14, 32, 0.58);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border: 1px solid var(--glass-border);
+      box-shadow:
+        0 12px 36px rgba(0, 0, 0, 0.36),
+        inset 0 1px 0 var(--glass-highlight);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 850;
+      letter-spacing: 0.11em;
+      font-size: 15px;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #fb7185, #fbbf24);
+      color: #160912;
+      font-weight: 950;
+      font-size: 17px;
+      box-shadow:
+        0 6px 20px rgba(251, 113, 133, 0.42),
+        inset 0 1px 1px rgba(255, 255, 255, 0.68);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: rgba(255, 235, 240, 0.045);
+      border: 1px solid rgba(255, 220, 230, 0.12);
+      color: #e4cbd6;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #fbbf24;
+      box-shadow: 0 0 10px #fbbf24, 0 0 18px rgba(251, 191, 36, 0.65);
+      animation: pulseDot 2.2s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.55; transform: scale(0.85); }
+    }
+
+    /* Community Glass Button */
+    .community-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #fff8fa;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.28), rgba(251, 191, 36, 0.22));
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(253, 164, 175, 0.44);
+      box-shadow:
+        0 6px 22px rgba(244, 63, 94, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .community-btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(253, 186, 116, 0.78);
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.42), rgba(251, 191, 36, 0.34));
+      box-shadow:
+        0 10px 28px rgba(244, 63, 94, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .community-btn svg {
+      width: 15px;
+      height: 15px;
+      fill: #fda4af;
+      flex-shrink: 0;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 58px 0 42px;
+    }
+
+    .hero-glass {
+      position: relative;
+      overflow: hidden;
+      padding: 44px 42px;
+      border-radius: 30px;
+      background: linear-gradient(145deg, rgba(255, 235, 242, 0.068), rgba(255, 235, 242, 0.02));
+      backdrop-filter: blur(22px) saturate(155%);
+      -webkit-backdrop-filter: blur(22px) saturate(155%);
+      border: 1px solid var(--glass-border);
+      box-shadow:
+        0 24px 64px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 var(--glass-highlight);
+    }
+
+    .hero-glass::after {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      right: -80px;
+      top: -110px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(251, 191, 36, 0.2), transparent 70%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(251, 113, 133, 0.12);
+      border: 1px solid rgba(251, 113, 133, 0.32);
+      color: #fda4af;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 20px 0 16px;
+      font-size: clamp(38px, 6.5vw, 70px);
+      line-height: 1.02;
+      letter-spacing: -0.055em;
+      font-weight: 900;
+    }
+
+    h1 span {
+      background: linear-gradient(105deg, #fff8fa 8%, #fda4af 50%, #fcd34d 95%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .intro {
+      max-width: 560px;
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.72;
+    }
+
+    /* Section Header */
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin: 12px 0 22px;
+      padding: 0 4px;
+    }
+
+    .section-head h2 {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .section-badge {
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #dfc4d2;
+      background: rgba(255, 235, 240, 0.048);
+      border: 1px solid rgba(255, 220, 230, 0.12);
+      backdrop-filter: blur(12px);
+    }
+
+    /* Resource Cards Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      padding-bottom: 72px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 268px;
+      padding: 28px;
+      border-radius: 26px;
+      background: linear-gradient(155deg, rgba(255, 235, 242, 0.075) 0%, rgba(28, 16, 36, 0.52) 100%);
+      backdrop-filter: blur(22px) saturate(165%);
+      -webkit-backdrop-filter: blur(22px) saturate(165%);
+      border: 1px solid var(--glass-border);
+      box-shadow:
+        0 18px 48px rgba(0, 0, 0, 0.36),
+        inset 0 1px 0 var(--glass-highlight);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    /* Glass Specular Sheen */
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(125deg, rgba(255, 230, 240, 0.14) 0%, transparent 42%);
+      opacity: 0.55;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    /* Ambient Colored Glow inside each card */
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      right: -55px;
+      top: -65px;
+      border-radius: 50%;
+      background: var(--glow);
+      filter: blur(42px);
+      opacity: 0.24;
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-7px) scale(1.01);
+      border-color: var(--glass-border-hover);
+      box-shadow:
+        0 28px 65px rgba(0, 0, 0, 0.5),
+        0 0 38px color-mix(in srgb, var(--glow) 30%, transparent),
+        inset 0 1px 0 rgba(255, 235, 242, 0.38);
+    }
+
+    .card:hover::after {
+      opacity: 0.4;
+      transform: scale(1.12);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Crisp PNG-Style Glass Icon Badges */
+    .icon-badge {
+      width: 60px;
+      height: 60px;
+      padding: 8px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: rgba(255, 235, 242, 0.085);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 225, 235, 0.22);
+      box-shadow:
+        0 10px 26px rgba(0, 0, 0, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover .icon-badge {
+      transform: scale(1.06) rotate(-2deg);
+    }
+
+    .icon-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 11px;
+    }
+
+    .number {
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: rgba(255, 235, 242, 0.055);
+      border: 1px solid rgba(255, 220, 230, 0.12);
+      color: #d4b8c7;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+    }
+
+    .card-body {
+      position: relative;
+      z-index: 1;
+      margin: 22px 0;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #fff8fa;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 13.5px;
+      line-height: 1.62;
+    }
+
+    /* Animated Gradient Launch Buttons — Rose, Sunset Coral & Plum */
+    .launch {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      align-self: flex-start;
+      padding: 13px 20px;
+      border-radius: 14px;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: linear-gradient(115deg, #e11d48, #f97316, #a855f7, #e11d48);
+      background-size: 260% 260%;
+      animation: gradientShift 5s ease infinite;
+      border: 1px solid rgba(255, 235, 242, 0.34);
+      box-shadow:
+        0 8px 24px rgba(225, 29, 72, 0.36),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .launch:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 12px 30px rgba(249, 115, 22, 0.48),
+        inset 0 1px 0 rgba(255, 255, 255, 0.65);
+      filter: brightness(1.07);
+    }
+
+    .launch:active {
+      transform: translateY(0) scale(0.97);
+    }
+
+    .launch .arrow {
+      display: inline-block;
+      font-size: 16px;
+      line-height: 1;
+      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .launch:hover .arrow {
+      transform: translate(3px, -3px);
+    }
+
+    /* Glass Footer */
+    footer {
+      margin-bottom: 24px;
+      padding: 18px 24px;
+      border-radius: 20px;
+      background: rgba(24, 14, 32, 0.48);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      color: #b59aa9;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Glassmorphism Iframe Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      background: rgba(10, 5, 15, 0.74);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      padding: 18px;
+      animation: fadeIn 0.22s ease;
+    }
+
+    .modal.open {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-box {
+      width: min(1220px, 100%);
+      height: min(88vh, 860px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-radius: 24px;
+      background: rgba(24, 14, 32, 0.76);
+      backdrop-filter: blur(26px) saturate(170%);
+      -webkit-backdrop-filter: blur(26px) saturate(170%);
+      border: 1px solid rgba(255, 225, 235, 0.22);
+      box-shadow:
+        0 32px 90px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 235, 242, 0.3);
+    }
+
+    .modal-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 18px;
+      background: rgba(255, 235, 242, 0.045);
+      border-bottom: 1px solid rgba(255, 225, 235, 0.12);
+      color: #fff2f6;
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: 0.03em;
+    }
+
+    .modal-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .modal-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent-amber);
+      box-shadow: 0 0 10px var(--accent-amber);
+    }
+
+    .modal-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .refresh,
+    .close {
+      border: 1px solid rgba(255, 225, 235, 0.18);
+      background: rgba(255, 235, 242, 0.08);
+      backdrop-filter: blur(10px);
+      color: #ffffff;
+      height: 36px;
+      border-radius: 11px;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.18s ease;
+    }
+
+    .refresh {
+      padding: 0 14px;
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: 0.03em;
+    }
+
+    .close {
+      width: 36px;
+      font-size: 20px;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+    }
+
+    .refresh:hover,
+    .close:hover {
+      background: rgba(251, 113, 133, 0.24);
+      border-color: rgba(253, 164, 175, 0.5);
+      transform: translateY(-1px);
+    }
+
+    iframe {
+      width: 100%;
+      flex: 1;
+      border: 0;
+      background: #ffffff;
+    }
+
+    /* Welcome Popup Redesign (Glassmorphism) */
     .welcome-overlay {
-      position:fixed; inset:0; z-index:30; display:flex; align-items:center; justify-content:center;
-      padding:20px; background:rgba(3,5,12,.82); backdrop-filter:blur(16px);
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(10, 5, 15, 0.74);
+      backdrop-filter: blur(20px) saturate(150%);
+      -webkit-backdrop-filter: blur(20px) saturate(150%);
+      animation: fadeIn 0.3s ease;
     }
+
     .welcome-card {
-      width:min(440px,100%); padding:30px; text-align:center; border-radius:24px;
-      border:1px solid rgba(150,174,255,.24);
-      background:linear-gradient(145deg,rgba(25,35,64,.98),rgba(10,15,29,.98));
-      box-shadow:0 28px 90px rgba(0,0,0,.55),0 0 45px rgba(94,128,255,.12);
+      position: relative;
+      overflow: hidden;
+      width: min(420px, 100%);
+      padding: 32px 28px;
+      text-align: center;
+      border-radius: 28px;
+      background: linear-gradient(155deg, rgba(255, 235, 242, 0.1) 0%, rgba(26, 15, 34, 0.74) 100%);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(255, 225, 235, 0.24);
+      box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.62),
+        0 0 45px rgba(244, 63, 94, 0.22),
+        inset 0 1px 0 rgba(255, 235, 242, 0.42);
+      animation: popScale 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
+
+    .welcome-card::before {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      top: -90px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(251, 191, 36, 0.34), transparent 70%);
+      pointer-events: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes popScale {
+      from { opacity: 0; transform: translateY(14px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
     .welcome-icon {
-      width:58px; height:58px; margin:0 auto 18px; display:grid; place-items:center;
-      border-radius:18px; color:#07101d; font-size:25px; font-weight:900;
-      background:linear-gradient(135deg,#7192ff,#4bd5e3);
+      position: relative;
+      width: 62px;
+      height: 62px;
+      margin: 0 auto 18px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      color: #160912;
+      font-size: 26px;
+      font-weight: 950;
+      background: linear-gradient(135deg, #fb7185, #fbbf24);
+      box-shadow:
+        0 10px 28px rgba(251, 113, 133, 0.38),
+        inset 0 1px 1px rgba(255, 255, 255, 0.7);
     }
-    .welcome-card h2 { margin:0 0 10px; font-size:25px; letter-spacing:-.04em; }
-    .welcome-card p { margin:0 auto 23px; max-width:330px; color:var(--muted); font-size:14px; line-height:1.65; }
-    .welcome-actions { display:grid; gap:11px; }
+
+    .welcome-card h2 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      font-weight: 850;
+      letter-spacing: -0.03em;
+      color: #fff8fa;
+    }
+
+    .welcome-card p {
+      margin: 0 auto 24px;
+      max-width: 320px;
+      color: #dec7d4;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .welcome-actions {
+      display: grid;
+      gap: 11px;
+    }
+
     .welcome-btn {
-      display:flex; justify-content:center; align-items:center; min-height:48px; padding:12px 16px;
-      border-radius:13px; border:1px solid rgba(155,179,255,.24); text-decoration:none;
-      font-size:12px; font-weight:850; letter-spacing:.07em; cursor:pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 12px 18px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 850;
+      letter-spacing: 0.07em;
+      cursor: pointer;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
     }
-    .welcome-btn.join { color:#07101d; background:linear-gradient(100deg,#91aaff,#69e4e8); border:0; }
-    .welcome-btn.continue { color:#e8edff; background:rgba(110,143,255,.12); }
-    .welcome-btn:hover { transform:translateY(-2px); }
-    @media (max-width:680px) {
-      .shell { width:min(100% - 28px,560px); }
-      header { padding:20px 0; }
-      .status { font-size:10px; }
-      .hero { padding:60px 0 40px; }
-      .intro { font-size:14px; }
-      .grid { grid-template-columns:1fr; gap:14px; padding-bottom:55px; }
-      .card { min-height:220px; }
-      .section-head p { display:none; }
-      footer { flex-direction:column; }
-      .modal { padding:8px; }
-      .modal-box { height:94vh; border-radius:13px; }
+
+    .welcome-btn.join {
+      color: #160912;
+      background: linear-gradient(110deg, #fda4af, #fcd34d);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      box-shadow: 0 10px 26px rgba(251, 113, 133, 0.34);
     }
-    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; } }
+
+    .welcome-btn.join:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(251, 191, 36, 0.48);
+    }
+
+    .welcome-btn.continue {
+      color: #fff2f6;
+      background: rgba(255, 235, 242, 0.075);
+      border: 1px solid rgba(255, 225, 235, 0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .welcome-btn.continue:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 235, 242, 0.14);
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 768px) {
+      .shell {
+        width: min(100% - 28px, 640px);
+      }
+
+      header {
+        top: 10px;
+        margin-top: 10px;
+        padding: 10px 14px;
+      }
+
+      .status-pill {
+        display: none;
+      }
+
+      .hero {
+        padding: 36px 0 30px;
+      }
+
+      .hero-glass {
+        padding: 30px 22px;
+        border-radius: 24px;
+      }
+
+      .intro {
+        font-size: 14.5px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding-bottom: 48px;
+      }
+
+      .card {
+        min-height: 235px;
+        padding: 24px;
+      }
+
+      .section-badge {
+        display: none;
+      }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+        padding: 16px;
+      }
+
+      .modal {
+        padding: 8px;
+      }
+
+      .modal-box {
+        height: 94vh;
+        border-radius: 18px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .brand {
+        font-size: 13px;
+        gap: 9px;
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+      }
+
+      .community-btn {
+        padding: 8px 12px;
+        font-size: 11px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="ambient-canvas" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
   <div class="shell">
     <header>
-      <div class="brand"><div class="brand-mark">B</div><span>BOARDXBREAKER</span></div>
-      <div class="status">Study space online</div>
+      <a class="brand" href="#">
+        <div class="brand-mark">B</div>
+        <span>BOARDXBREAKER</span>
+      </a>
+
+      <div class="header-right">
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          <span>Study space online</span>
+        </div>
+
+        <a class="community-btn" href="https://t.me/BOARDXBREKER" target="_blank" rel="noopener noreferrer" aria-label="Join BOARDXBREAKER Telegram Community">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+          </svg>
+          <span>Community</span>
+        </a>
+      </div>
     </header>
 
     <main>
       <section class="hero">
-        <div class="eyebrow">Your learning starts here</div>
-        <h1>Break limits.<br><span>Build your future.</span></h1>
-        <p class="intro">Your study resources, brought together in one focused space. Choose a batch and get started.</p>
+        <div class="hero-glass">
+          <div class="eyebrow">Your learning starts here</div>
+          <h1>Break limits.<br><span>Build your future.</span></h1>
+          <p class="intro">Your study resources, brought together in one focused glass workspace. Choose a batch or library and get started.</p>
+        </div>
       </section>
 
       <div class="section-head">
-        <h2>Available batches</h2>
-        <p>SELECT A BATCH TO CONTINUE</p>
+        <h2>Available resources &amp; batches</h2>
+        <span class="section-badge">SELECT TO CONTINUE</span>
       </div>
 
-      <section class="grid" aria-label="Available batches">
-        <article class="card" style="--accent:#d8dce8;--accent2:#737b91;--glow:#8b93a8">
+      <section class="grid" aria-label="Available resources and batches">
+        <!-- 01: Books Library (First) -->
+        <article class="card" style="--glow:#fbbf24">
           <div class="card-top">
-            <div class="symbol" style="color:#f4f6ff;background:linear-gradient(135deg,#303747,#111722)">PW</div>
-            <div class="number">01 / BATCH</div>
+            <div class="icon-badge">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><defs><linearGradient id='bk' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%23fbbf24'/><stop offset='100%25' stop-color='%23f43f5e'/></linearGradient></defs><rect width='120' height='120' rx='26' fill='url(%23bk)'/><path d='M32 36 C44 32, 56 36, 60 42 C64 36, 76 32, 88 36 L88 84 C76 80, 64 84, 60 90 C56 84, 44 80, 32 84 Z' fill='%23ffffff' fill-opacity='0.96'/><line x1='60' y1='42' x2='60' y2='90' stroke='%23e11d48' stroke-width='3'/></svg>" alt="Books Library Icon">
+            </div>
+            <div class="number">01 / LIBRARY</div>
           </div>
-          <h3>Physics Wallah</h3>
-          <p>Explore Physics Wallah batches and study resources.</p>
-          <a class="launch" href="https://pw-study-bison.space-z.ai/" data-frame-title="Physics Wallah">LAUNCH BATCH <span>↗</span></a>
+          <div class="card-body">
+            <h3>Books Library</h3>
+            <p>Browse your study books and learning resources in one place.</p>
+          </div>
+          <a class="launch" href="/books/">
+            <span>OPEN BOOKS</span>
+            <span class="arrow">↗</span>
+          </a>
         </article>
 
-        <article class="card" style="--accent:#91aaff;--accent2:#69e4e8;--glow:#638bff">
+        <!-- 02: Physics Wallah -->
+        <article class="card" style="--glow:#f43f5e">
           <div class="card-top">
-            <div class="symbol">NT</div>
-            <div class="number">03 / BATCH</div>
-          </div>
-          <h3>Next Toppers 1</h3>
-          <p>Open your learning space and continue your preparation.</p>
-          <a class="launch" href="https://eduvibe-nt.pages.dev" data-frame-title="Next Toppers 1">LAUNCH BATCH <span>↗</span></a>
-        </article>
-
-        <article class="card" style="--accent:#ffc27a;--accent2:#ff8d9d;--glow:#ff9d70">
-          <div class="card-top">
-            <div class="symbol">RWA</div>
+            <div class="icon-badge">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><defs><linearGradient id='pw' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%2327172e'/><stop offset='100%25' stop-color='%23120918'/></linearGradient></defs><rect width='120' height='120' rx='26' fill='url(%23pw)'/><circle cx='60' cy='60' r='44' fill='none' stroke='%23fda4af' stroke-width='3.5' stroke-opacity='0.9'/><text x='60' y='71' text-anchor='middle' fill='%23fff8fa' font-family='Arial, sans-serif' font-weight='900' font-size='34' letter-spacing='-1'>PW</text></svg>" alt="Physics Wallah Logo">
+            </div>
             <div class="number">02 / BATCH</div>
           </div>
-          <h3>RWA</h3>
-          <p>Open your learning space and continue your preparation.</p>
-          <a class="Launch" href="https://sw-studybison.space-z.ai/" data-frame-title="Launch Batch"> <span>↗</span></a>
-        </article>
-
-        <article class="card" style="--accent:#8ce0bd;--accent2:#5ca9e8;--glow:#65dfbd">
-          <div class="card-top">
-            <div class="symbol" style="color:#07101d;background:linear-gradient(135deg,#8ce0bd,#5ca9e8)">BK</div>
-            <div class="number">04 / LIBRARY</div>
+          <div class="card-body">
+            <h3>Physics Wallah</h3>
+            <p>Explore Physics Wallah batches and study resources.</p>
           </div>
-          <h3>Books Library</h3>
-          <p>Browse your study books and learning resources in one place.</p>
-          <a class="launch" href="/books/">OPEN BOOKS <span>↗</span></a>
+          <a class="launch" href="https://pw-study-bison.space-z.ai/" data-frame-title="Physics Wallah">
+            <span>LAUNCH BATCH</span>
+            <span class="arrow">↗</span>
+          </a>
         </article>
 
+        <!-- 03: Next Toppers 1 -->
+        <article class="card" style="--glow:#c084fc">
+          <div class="card-top">
+            <div class="icon-badge">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><defs><linearGradient id='nt' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%23fb7185'/><stop offset='100%25' stop-color='%23c084fc'/></linearGradient></defs><rect width='120' height='120' rx='26' fill='url(%23nt)'/><path d='M60 22 L67 42 L88 42 L71 54 L77 74 L60 62 L43 74 L49 54 L32 42 L53 42 Z' fill='%23160912' fill-opacity='0.2'/><text x='60' y='74' text-anchor='middle' fill='%23160912' font-family='Arial, sans-serif' font-weight='900' font-size='38' letter-spacing='-1'>NT</text></svg>" alt="Next Toppers Logo">
+            </div>
+            <div class="number">03 / BATCH</div>
+          </div>
+          <div class="card-body">
+            <h3>Next Toppers 1</h3>
+            <p>Open your learning space and continue your preparation.</p>
+          </div>
+          <a class="launch" href="https://eduvibe-nt.pages.dev" data-frame-title="Next Toppers 1">
+            <span>LAUNCH BATCH</span>
+            <span class="arrow">↗</span>
+          </a>
+        </article>
+
+        <!-- 04: RWA -->
+        <article class="card" style="--glow:#fb923c">
+          <div class="card-top">
+            <div class="icon-badge">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><defs><linearGradient id='rwa' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%23fb923c'/><stop offset='100%25' stop-color='%23e11d48'/></linearGradient></defs><rect width='120' height='120' rx='26' fill='url(%23rwa)'/><rect x='14' y='14' width='92' height='92' rx='18' fill='none' stroke='%23ffffff' stroke-opacity='0.4' stroke-width='2.5'/><text x='60' y='71' text-anchor='middle' fill='%23ffffff' font-family='Arial, sans-serif' font-weight='900' font-size='30' letter-spacing='0.5'>RWA</text></svg>" alt="RWA Logo">
+            </div>
+            <div class="number">04 / BATCH</div>
+          </div>
+          <div class="card-body">
+            <h3>RWA</h3>
+            <p>Open your learning space and continue your preparation.</p>
+          </div>
+          <a class="launch" href="https://sw-studybison.space-z.ai/" data-frame-title="RWA">
+            <span>LAUNCH BATCH</span>
+            <span class="arrow">↗</span>
+          </a>
+        </article>
       </section>
     </main>
 
@@ -194,22 +997,31 @@
       <span>Learn with focus. Move beyond limits.</span>
     </footer>
   </div>
+
+  <!-- Glassmorphism Welcome Popup -->
   <div class="welcome-overlay" id="welcomePopup" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
     <div class="welcome-card">
       <div class="welcome-icon">B</div>
       <h2 id="welcomeTitle">Welcome to BOARDXBREAKER</h2>
       <p>Join our Telegram channel to stay updated with notes and study resources.</p>
       <div class="welcome-actions">
-        <a class="welcome-btn join" href="https://t.me/Class10_Notes2026" target="_blank" rel="noopener noreferrer">JOIN TELEGRAM ↗</a>
+        <a class="welcome-btn join" href="https://t.me/BOARDXBREKER" target="_blank" rel="noopener noreferrer">
+          <span>JOIN TELEGRAM</span>
+          <span>↗</span>
+        </a>
         <button class="welcome-btn continue" id="continueBtn" type="button">CONTINUE</button>
       </div>
     </div>
   </div>
 
+  <!-- Glassmorphism Batch Viewer Iframe Modal -->
   <div class="modal" id="batchModal" role="dialog" aria-modal="true" aria-label="Batch viewer">
     <div class="modal-box">
       <div class="modal-bar">
-        <span id="modalTitle">Batch</span>
+        <div class="modal-title-wrap">
+          <span class="modal-dot"></span>
+          <span id="modalTitle">Batch</span>
+        </div>
         <div class="modal-actions">
           <button class="refresh" id="refreshFrame" type="button" aria-label="Refresh batch">↻ Refresh</button>
           <button class="close" id="closeModal" type="button" aria-label="Close batch viewer">×</button>
@@ -218,6 +1030,7 @@
       <iframe id="batchFrame" title="Batch content" src="about:blank" allow="fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe>
     </div>
   </div>
+
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
