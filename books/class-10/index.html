@@ -4,201 +4,832 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080b16">
-<title>Class 10 Books | BOARDXBREAKER</title>
+<meta name="theme-color" content="#080d16">
+<title>Class 10 Library | BOARDXBREAKER</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  color-scheme: dark;
-  --bg:#080b16;
-  --line:rgba(160,178,255,.16);
-  --muted:#9ba6c5;
-  --text:#f4f6ff;
-  --cyan:#63e4ef;
+  --bg:#080d16;
+  --panel:#101a28;
+  --text:#f3f7ff;
+  --muted:#8998aa;
+  --green:#9de8c0;
+  --blue:#91c9ff;
+  --border:rgba(255,255,255,.09);
 }
-*{box-sizing:border-box}
-body{
-  margin:0;min-height:100vh;color:var(--text);
-  font-family:Inter,system-ui,sans-serif;
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body {
+  min-height:100vh;
   background:
-  radial-gradient(ellipse at 15% 5%,rgba(63,91,210,.22),transparent 34rem),
-  radial-gradient(ellipse at 88% 22%,rgba(31,191,204,.12),transparent 30rem),
-  var(--bg)
+    radial-gradient(ellipse at 10% 0%,rgba(35,115,91,.19),transparent 35%),
+    radial-gradient(ellipse at 100% 30%,rgba(45,95,160,.17),transparent 35%),
+    var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;
 }
-.shell{width:min(1120px,calc(100% - 40px));margin:auto}
-header{display:flex;align-items:center;justify-content:space-between;padding:28px 0}
-.brand{display:flex;align-items:center;gap:12px;font-weight:850;letter-spacing:.11em;font-size:15px}
-.mark{
-  width:38px;height:38px;display:grid;place-items:center;
-  border-radius:12px;background:linear-gradient(135deg,#7192ff,#4bd5e3);
-  color:#07101d;font-weight:950
+
+a {
+  color:inherit;
+  text-decoration:none;
 }
-a{color:inherit;text-decoration:none}
-.back{
-  color:#cbd5f5;font-size:13px;border:1px solid var(--line);
-  background:rgba(110,143,255,.12);padding:10px 14px;border-radius:11px
+
+.container {
+  width:min(1120px,calc(100% - 40px));
+  margin:auto;
 }
-main{padding:54px 0 90px}
-.eyebrow{color:var(--cyan);text-transform:uppercase;letter-spacing:.22em;font-size:11px;font-weight:800}
-h1{margin:17px 0 14px;font-size:clamp(42px,7vw,70px);line-height:1;letter-spacing:-.06em}
-h1 span{
-  background:linear-gradient(100deg,#fff 10%,#9bb4ff 56%,#69e4e8);
-  -webkit-background-clip:text;background-clip:text;color:transparent
+
+/* NAVBAR */
+
+.navbar {
+  height:82px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--border);
 }
-.intro{max-width:560px;color:var(--muted);font-size:15px;line-height:1.75;margin-bottom:30px}
-.toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:30px 0 18px}
-.search{
-  width:min(420px,100%);border:1px solid var(--line);border-radius:13px;
-  background:rgba(17,25,47,.82);color:var(--text);padding:14px 16px;
-  font:inherit;outline:none
+
+.logo {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-family:'Outfit',sans-serif;
+  font-weight:800;
+  font-size:14px;
+  letter-spacing:2px;
 }
-.search:focus{border-color:rgba(99,228,239,.65);box-shadow:0 0 0 3px rgba(99,228,239,.08)}
-.count{color:var(--muted);font-size:12px;white-space:nowrap}
-.book-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
-.book{
-  display:flex;align-items:center;gap:14px;min-width:0;padding:17px;
-  border:1px solid var(--line);border-radius:17px;
-  background:linear-gradient(145deg,rgba(24,33,59,.88),rgba(13,18,34,.86));
-  transition:transform .2s,border-color .2s,background .2s
+
+.logo-icon {
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  color:#08140e;
+  font-size:22px;
+  background:linear-gradient(135deg,#a6efc8,#79c7f1);
+  box-shadow:0 0 28px rgba(121,220,171,.2);
 }
-.book:hover{
-  transform:translateY(-3px);border-color:rgba(99,228,239,.42);
-  background:linear-gradient(145deg,rgba(31,47,78,.96),rgba(13,23,42,.94))
+
+.back-btn {
+  padding:11px 16px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.04);
+  border-radius:12px;
+  font-size:11px;
+  font-weight:700;
+  color:#c7d5e3;
+  transition:.25s;
 }
-.number{
-  flex:0 0 36px;width:36px;height:36px;display:grid;place-items:center;
-  border-radius:11px;background:rgba(111,145,255,.14);
-  color:#a9bcff;font-size:12px;font-weight:800
+
+.back-btn:hover {
+  border-color:var(--green);
+  color:var(--green);
+  transform:translateY(-2px);
 }
-.book-info{flex:1;min-width:0}
-.book-name{font-size:13px;line-height:1.5;font-weight:700;overflow-wrap:anywhere}
-.book-type{margin-top:4px;color:#8290b2;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
-.launch{
-  flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
-  padding:10px 13px;border-radius:10px;
-  background:linear-gradient(110deg,#7192ff,#53d7e4);
-  color:#07101d;font-size:11px;font-weight:900;letter-spacing:.04em;
-  transition:filter .2s
+
+/* HERO */
+
+.hero {
+  position:relative;
+  overflow:hidden;
+  margin-top:45px;
+  padding:48px;
+  border-radius:28px;
+  border:1px solid rgba(157,232,192,.16);
+  background:
+    linear-gradient(115deg,rgba(37,104,79,.25),rgba(32,65,104,.12)),
+    rgba(15,25,39,.85);
+  box-shadow:0 25px 80px rgba(0,0,0,.2);
 }
-.launch:hover{filter:brightness(1.12)}
-.no-results{
-  display:none;padding:24px;border:1px solid var(--line);
-  border-radius:16px;color:var(--muted);text-align:center
+
+.hero::before {
+  content:"";
+  position:absolute;
+  width:300px;
+  height:300px;
+  right:-65px;
+  top:-100px;
+  border-radius:50%;
+  background:rgba(123,221,177,.13);
+  filter:blur(75px);
 }
-footer{
-  border-top:1px solid rgba(160,178,255,.1);padding:22px 0 30px;
-  color:#73809f;font-size:11px;display:flex;justify-content:space-between;gap:12px
+
+.hero::after {
+  content:"X";
+  position:absolute;
+  right:55px;
+  top:50%;
+  transform:translateY(-50%);
+  font-family:'Outfit',sans-serif;
+  font-size:250px;
+  font-weight:800;
+  color:rgba(255,255,255,.035);
+  pointer-events:none;
 }
-@media(max-width:680px){
-  .shell{width:min(100% - 28px,560px)}
-  header{padding:20px 0}
-  .brand{font-size:12px}
-  .back{font-size:11px;padding:9px 11px}
-  main{padding:44px 0 65px}
-  .book-grid{grid-template-columns:1fr}
-  .book{padding:14px}
-  .book-name{font-size:12px}
-  .launch{padding:9px 11px;font-size:10px}
-  .toolbar{align-items:flex-start;flex-direction:column}
-  .count{white-space:normal}
-  footer{flex-direction:column}
+
+.hero-content {
+  position:relative;
+  z-index:1;
+}
+
+.tag {
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  color:var(--green);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:2.5px;
+}
+
+.tag::before {
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 12px var(--green);
+}
+
+.hero h1 {
+  margin:22px 0 13px;
+  font-family:'Outfit',sans-serif;
+  font-size:clamp(48px,8vw,82px);
+  line-height:.98;
+  letter-spacing:-4px;
+}
+
+.hero h1 span {
+  color:var(--green);
+}
+
+.hero p {
+  max-width:470px;
+  color:#a3b2c2;
+  font-size:14px;
+  line-height:1.9;
+}
+
+.hero-meta {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:27px;
+}
+
+.meta-item {
+  padding:9px 13px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:10px;
+  background:rgba(255,255,255,.045);
+  color:#c9d7e5;
+  font-size:10px;
+  font-weight:700;
+}
+
+/* LIBRARY HEADER */
+
+.library {
+  padding:55px 0 85px;
+}
+
+.section-head {
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:24px;
+}
+
+.section-head h2 {
+  font-family:'Outfit',sans-serif;
+  font-size:28px;
+  letter-spacing:-.7px;
+}
+
+.section-head p {
+  margin-top:6px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.counter {
+  color:var(--green);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+/* SEARCH */
+
+.search-area {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:25px;
+}
+
+.search-box {
+  position:relative;
+  flex:1;
+}
+
+.search-box span {
+  position:absolute;
+  left:18px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:20px;
+  color:var(--green);
+}
+
+.search-box input {
+  width:100%;
+  height:55px;
+  padding:0 18px 0 49px;
+  outline:none;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:rgba(17,28,43,.85);
+  color:white;
+  font-family:inherit;
+  font-size:13px;
+  transition:.25s;
+}
+
+.search-box input::placeholder {
+  color:#77879b;
+}
+
+.search-box input:focus {
+  border-color:rgba(157,232,192,.55);
+  box-shadow:0 0 0 4px rgba(157,232,192,.07);
+}
+
+.result-count {
+  height:55px;
+  display:flex;
+  align-items:center;
+  padding:0 18px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:rgba(255,255,255,.035);
+  color:#b6c6d5;
+  font-size:11px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+/* BOOK CARDS */
+
+.book-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:19px;
+}
+
+.book-card {
+  --accent:#9de8c0;
+  --accent-bg:rgba(157,232,192,.12);
+
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:19px;
+  min-width:0;
+  min-height:154px;
+  padding:21px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  border-radius:21px;
+  background:linear-gradient(130deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+  box-shadow:0 12px 35px rgba(0,0,0,.13);
+  transition:transform .3s,border-color .3s,background .3s,box-shadow .3s;
+  animation:appear .45s ease both;
+}
+
+.book-card::before {
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  right:-100px;
+  bottom:-130px;
+  background:var(--accent);
+  opacity:.10;
+  filter:blur(55px);
+  transition:.35s;
+}
+
+.book-card:hover {
+  transform:translateY(-5px);
+  border-color:var(--accent);
+  background:linear-gradient(130deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
+  box-shadow:0 18px 45px rgba(0,0,0,.27);
+}
+
+.book-card:hover::before {
+  opacity:.24;
+  transform:scale(1.4);
+}
+
+/* COVER */
+
+.book-cover {
+  position:relative;
+  z-index:1;
+  flex:0 0 82px;
+  width:82px;
+  height:108px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border-radius:9px 15px 15px 9px;
+  border:1px solid rgba(255,255,255,.17);
+  background:linear-gradient(145deg,var(--accent-bg),rgba(255,255,255,.035));
+  box-shadow:inset 5px 0 rgba(255,255,255,.07),8px 12px 24px rgba(0,0,0,.20);
+  color:var(--accent);
+}
+
+.book-cover::after {
+  content:"";
+  width:36px;
+  height:3px;
+  border-radius:5px;
+  background:var(--accent);
+  opacity:.7;
+}
+
+.cover-number {
+  font-family:'Outfit',sans-serif;
+  font-size:29px;
+  font-weight:800;
+}
+
+.cover-label {
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+/* BOOK INFO */
+
+.book-details {
+  flex:1;
+  min-width:0;
+  position:relative;
+  z-index:1;
+}
+
+.book-category {
+  margin-bottom:9px;
+  color:var(--accent);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1.5px;
+}
+
+.book-title {
+  color:#f0f5fc;
+  font-family:'Outfit',sans-serif;
+  font-size:16px;
+  font-weight:600;
+  line-height:1.45;
+  overflow-wrap:anywhere;
+}
+
+.book-subtitle {
+  margin-top:9px;
+  color:#7f91a5;
+  font-size:10px;
+  font-weight:600;
+}
+
+/* BUTTON */
+
+.launch-btn {
+  position:relative;
+  z-index:2;
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:12px 15px;
+  border-radius:11px;
+  background:var(--accent);
+  color:#08150f;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.5px;
+  transition:.25s;
+  white-space:nowrap;
+}
+
+.launch-btn:hover {
+  transform:scale(1.06);
+  box-shadow:0 0 25px var(--accent-bg);
+}
+
+/* EMPTY STATE */
+
+.empty {
+  display:none;
+  padding:55px 20px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  text-align:center;
+  background:rgba(255,255,255,.025);
+}
+
+.empty .symbol {
+  font-size:35px;
+  color:var(--green);
+}
+
+.empty h3 {
+  margin:12px 0 7px;
+  font-family:'Outfit',sans-serif;
+}
+
+.empty p {
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* FOOTER */
+
+footer {
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:25px 0;
+  border-top:1px solid var(--border);
+  color:#718197;
+  font-size:11px;
+}
+
+footer strong {
+  color:#b7c8d9;
+}
+
+@keyframes appear {
+  from { opacity:0; transform:translateY(12px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+/* TABLET */
+
+@media(max-width:850px) {
+  .book-grid {
+    grid-template-columns:1fr;
+  }
+}
+
+/* MOBILE */
+
+@media(max-width:560px) {
+  .container {
+    width:calc(100% - 26px);
+  }
+
+  .navbar {
+    height:72px;
+  }
+
+  .logo {
+    font-size:11px;
+    letter-spacing:1px;
+    gap:9px;
+  }
+
+  .logo-icon {
+    width:36px;
+    height:36px;
+  }
+
+  .back-btn {
+    padding:10px;
+    font-size:9px;
+  }
+
+  .hero {
+    margin-top:27px;
+    padding:29px 22px;
+    border-radius:22px;
+  }
+
+  .hero::after {
+    right:0;
+    font-size:170px;
+  }
+
+  .hero h1 {
+    font-size:57px;
+    letter-spacing:-3px;
+  }
+
+  .hero p {
+    font-size:12px;
+  }
+
+  .library {
+    padding-top:42px;
+  }
+
+  .section-head h2 {
+    font-size:23px;
+  }
+
+  .section-head p {
+    font-size:10px;
+  }
+
+  .counter {
+    font-size:9px;
+  }
+
+  .search-area {
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .result-count {
+    justify-content:center;
+  }
+
+  .book-grid {
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+
+  .book-card {
+    min-height:135px;
+    padding:15px;
+    gap:13px;
+    border-radius:17px;
+  }
+
+  .book-cover {
+    flex-basis:67px;
+    width:67px;
+    height:91px;
+  }
+
+  .cover-number {
+    font-size:25px;
+  }
+
+  .book-title {
+    font-size:14px;
+  }
+
+  .book-category {
+    font-size:8px;
+  }
+
+  .book-subtitle {
+    font-size:9px;
+  }
+
+  .launch-btn {
+    padding:10px 11px;
+    font-size:9px;
+  }
+
+  footer {
+    flex-direction:column;
+    text-align:center;
+  }
+}
+
+@media(max-width:370px) {
+  .book-card {
+    gap:10px;
+    padding:12px;
+  }
+
+  .book-cover {
+    flex-basis:55px;
+    width:55px;
+    height:79px;
+  }
+
+  .book-title {
+    font-size:12px;
+  }
+
+  .launch-btn {
+    padding:9px;
+    font-size:8px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    animation:none!important;
+    transition:none!important;
+  }
 }
 </style>
 </head>
 
 <body>
-<div class="shell">
+<div class="container">
 
-<header>
-  <a class="brand" href="/">
-    <span class="mark">B</span>
+<header class="navbar">
+  <a href="/" class="logo">
+    <span class="logo-icon">B</span>
     <span>BOARDXBREAKER</span>
   </a>
-  <a class="back" href="/books/">← BACK TO BOOKS</a>
+
+  <a href="/books/" class="back-btn">← ALL BOOKS</a>
 </header>
 
-<main>
-  <div class="eyebrow">Your study library · Class 10</div>
-  <h1>Class 10 <span>Books.</span></h1>
-  <p class="intro">
-    Explore books and study material for Class 10, all in one place.
-    Choose a book and tap Launch to open it.
-  </p>
+<section class="hero">
+  <div class="hero-content">
+    <div class="tag">YOUR DIGITAL LIBRARY</div>
 
-  <div class="toolbar">
-    <input class="search" id="bookSearch" type="search"
-      placeholder="Search books by name..." aria-label="Search books">
-    <div class="count" id="bookCount">23 BOOKS AVAILABLE</div>
+    <h1>Class 10<br><span>Library.</span></h1>
+
+    <p>
+      Everything you need for your academic journey,
+      collected in one place. Explore books, question banks
+      and study resources designed to help you move forward.
+    </p>
+
+    <div class="hero-meta">
+      <span class="meta-item">✦ CLASS X</span>
+      <span class="meta-item">23 RESOURCES</span>
+      <span class="meta-item">DIGITAL COLLECTION</span>
+    </div>
+  </div>
+</section>
+
+<section class="library">
+
+  <div class="section-head">
+    <div>
+      <h2>The Collection</h2>
+      <p>Choose a book and start learning.</p>
+    </div>
+    <div class="counter">01 — 23</div>
   </div>
 
-  <section class="book-grid" id="bookGrid" aria-label="Class 10 books"></section>
-  <div class="no-results" id="noResults">No books found. Try another search.</div>
-</main>
+  <div class="search-area">
+    <div class="search-box">
+      <span>⌕</span>
+      <input
+        id="search"
+        type="search"
+        placeholder="Search books, subjects or resources..."
+        aria-label="Search books">
+    </div>
+
+    <div class="result-count" id="resultCount">23 RESOURCES</div>
+  </div>
+
+  <div class="book-grid" id="bookGrid"></div>
+
+  <div class="empty" id="empty">
+    <div class="symbol">⌕</div>
+    <h3>No books found</h3>
+    <p>Try a different book name or keyword.</p>
+  </div>
+
+</section>
 
 <footer>
-  <span>© <span id="year"></span> BOARDXBREAKER</span>
-  <span>Learn with focus. Move beyond limits.</span>
+  <span>© <span id="year"></span> <strong>BOARDXBREAKER</strong></span>
+  <span>Made for learners. Built for progress.</span>
 </footer>
 
 </div>
 
 <script>
 const books = [
-["1'o Clock Revison Science by Kriti Sharma","https://vplink.in/mowXP"],
-["360 SST by Kriti Didi","https://vplink.in/3yA0"],
-["All in One - Mathematics Class 10","https://vplink.in/G2Kw9"],
-["ALL_IN_ONE_Latest_EditionSST_Class_10th","https://vplink.in/cJnK4j"],
-["Arihant All in One Mathematics Class 10","https://vplink.in/jwfyyo"],
-["Class 10 QCB Maths (Std), Science, SST & English Combo","https://vplink.in/TiGOE"],
-["Class 10 Science Oswaal Questions Bank","https://vplink.in/Nrk4U9"],
-["Class 10th S Chand Science Part 1 Physics","https://vplink.in/0qW8a"],
-["Class_10_Social_Science_Oswaal_Sample_Question_Paper","https://vplink.in/gKSf"],
-["Complete NCERT Exemplar Class 10","https://vplink.in/IRiXpE"],
-["Copy of Educart Maths SPQ","https://vplink.in/lXBQo"],
-["Educart Social Science Question Bank Class 10 CBSE 2025","https://vplink.in/1okzY"],
-["Kriti Sharma English 360","https://vplink.in/IXpH"],
-["MATHEMATICS MADE EASY BY RITIK MISHRA (PW)","https://vplink.in/jL7ka"],
-["Maths PW Question Bank (2026)","https://vplink.in/j9f42"],
-["PW ENGLISH QCB 2026 (Part-1)","https://vplink.in/QFvs"],
-["PW REAL FEEL SAMPLE PAPERS CLASS 10","https://vplink.in/LPXfw5"],
-["PW Social Science Sample Paper Class 10","https://vplink.in/F348"],
-["RD Sharma Class 10","https://vplink.in/MgN0T"],
-["S.Chand Science Class 10 Chemistry","https://vplink.in/I3QOD"],
-["Science Oswaal QB 2026-27","https://vplink.in/uay4"],
-["Social Science 360 By Kriti Sharma","https://vplink.in/1oHa"],
-["SST CLASS 10 ALL IN ONE ARIHANT","https://vplink.in/45n6q"]
+["1'o Clock Revison Science by Kriti Sharma","https://vplink.in/mowXP","SCIENCE"],
+["360 SST by Kriti Didi","https://vplink.in/3yA0","SOCIAL SCIENCE"],
+["All in One - Mathematics Class 10","https://vplink.in/G2Kw9","MATHEMATICS"],
+["ALL_IN_ONE_Latest_EditionSST_Class_10th","https://vplink.in/cJnK4j","SOCIAL SCIENCE"],
+["Arihant All in One Mathematics Class 10","https://vplink.in/jwfyyo","MATHEMATICS"],
+["Class 10 QCB Maths (Std), Science, SST & English Combo","https://vplink.in/TiGOE","QUESTION BANK"],
+["Class 10 Science Oswaal Questions Bank","https://vplink.in/Nrk4U9","SCIENCE"],
+["Class 10th S Chand Science Part 1 Physics","https://vplink.in/0qW8a","PHYSICS"],
+["Class_10_Social_Science_Oswaal_Sample_Question_Paper","https://vplink.in/gKSf","SOCIAL SCIENCE"],
+["Complete NCERT Exemplar Class 10","https://vplink.in/IRiXpE","NCERT"],
+["Copy of Educart Maths SPQ","https://vplink.in/lXBQo","MATHEMATICS"],
+["Educart Social Science Question Bank Class 10 CBSE 2025","https://vplink.in/1okzY","SOCIAL SCIENCE"],
+["Kriti Sharma English 360","https://vplink.in/IXpH","ENGLISH"],
+["MATHEMATICS MADE EASY BY RITIK MISHRA (PW)","https://vplink.in/jL7ka","MATHEMATICS"],
+["Maths PW Question Bank (2026)","https://vplink.in/j9f42","MATHEMATICS"],
+["PW ENGLISH QCB 2026 (Part-1)","https://vplink.in/QFvs","ENGLISH"],
+["PW REAL FEEL SAMPLE PAPERS CLASS 10","https://vplink.in/LPXfw5","SAMPLE PAPERS"],
+["PW Social Science Sample Paper Class 10","https://vplink.in/F348","SOCIAL SCIENCE"],
+["RD Sharma Class 10","https://vplink.in/MgN0T","MATHEMATICS"],
+["S.Chand Science Class 10 Chemistry","https://vplink.in/I3QOD","CHEMISTRY"],
+["Science Oswaal QB 2026-27","https://vplink.in/uay4","SCIENCE"],
+["Social Science 360 By Kriti Sharma","https://vplink.in/1oHa","SOCIAL SCIENCE"],
+["SST CLASS 10 ALL IN ONE ARIHANT","https://vplink.in/45n6q","SOCIAL SCIENCE"]
 ];
 
-const grid=document.getElementById("bookGrid");
-const search=document.getElementById("bookSearch");
-const count=document.getElementById("bookCount");
-const noResults=document.getElementById("noResults");
+const colors = [
+  ["#9de8c0","rgba(157,232,192,.13)"],
+  ["#91c9ff","rgba(145,201,255,.13)"],
+  ["#d5a6ff","rgba(213,166,255,.13)"],
+  ["#ffbd9a","rgba(255,189,154,.13)"],
+  ["#f2a6c9","rgba(242,166,201,.13)"],
+  ["#e6d58f","rgba(230,213,143,.13)"]
+];
 
-function renderBooks(){
-  const query=search.value.trim().toLowerCase();
-  const filtered=books.map((book,index)=>({
-    name:book[0],url:book[1],index
-  })).filter(book=>book.name.toLowerCase().includes(query));
+const grid = document.getElementById("bookGrid");
+const search = document.getElementById("search");
+const resultCount = document.getElementById("resultCount");
+const empty = document.getElementById("empty");
 
-  grid.innerHTML=filtered.map(book=>`
-    <article class="book">
-      <span class="number">${String(book.index+1).padStart(2,"0")}</span>
-      <div class="book-info">
-        <div class="book-name">${book.name}</div>
-        <div class="book-type">Class 10 · Study Material</div>
-      </div>
-      <a class="launch" href="${book.url}" target="_blank"
-        rel="noopener noreferrer">LAUNCH ↗</a>
-    </article>
-  `).join("");
+function renderBooks() {
+  const query = search.value.trim().toLowerCase();
 
-  count.textContent=`${filtered.length} OF ${books.length} BOOKS`;
-  noResults.style.display=filtered.length?"none":"block";
+  const filtered = books
+    .map((book,index)=>({book,index}))
+    .filter(item => item.book.join(" ").toLowerCase().includes(query));
+
+  grid.replaceChildren();
+
+  filtered.forEach(({book,index},position)=>{
+    const [name,url,category] = book;
+    const [accent,accentBg] = colors[index % colors.length];
+
+    const card = document.createElement("article");
+    card.className = "book-card";
+    card.style.setProperty("--accent",accent);
+    card.style.setProperty("--accent-bg",accentBg);
+    card.style.animationDelay = Math.min(position * 35,300) + "ms";
+
+    const cover = document.createElement("div");
+    cover.className = "book-cover";
+
+    const number = document.createElement("span");
+    number.className = "cover-number";
+    number.textContent = String(index+1).padStart(2,"0");
+
+    const coverLabel = document.createElement("span");
+    coverLabel.className = "cover-label";
+    coverLabel.textContent = "BOOK";
+
+    cover.append(number,coverLabel);
+
+    const details = document.createElement("div");
+    details.className = "book-details";
+
+    const type = document.createElement("div");
+    type.className = "book-category";
+    type.textContent = category;
+
+    const title = document.createElement("div");
+    title.className = "book-title";
+    title.textContent = name;
+
+    const subtitle = document.createElement("div");
+    subtitle.className = "book-subtitle";
+    subtitle.textContent = "CLASS 10  ·  STUDY RESOURCE";
+
+    details.append(type,title,subtitle);
+
+    const launch = document.createElement("a");
+    launch.className = "launch-btn";
+    launch.href = url;
+    launch.target = "_blank";
+    launch.rel = "noopener noreferrer";
+    launch.textContent = "OPEN ↗";
+    launch.setAttribute("aria-label","Open "+name);
+
+    card.append(cover,details,launch);
+    grid.appendChild(card);
+  });
+
+  resultCount.textContent = `${filtered.length} RESOURCES`;
+  empty.style.display = filtered.length ? "none" : "block";
 }
 
 search.addEventListener("input",renderBooks);
-document.getElementById("year").textContent=new Date().getFullYear();
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
 renderBooks();
 </script>
+
 </body>
 </html>
